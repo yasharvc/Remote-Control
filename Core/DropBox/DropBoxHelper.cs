@@ -17,12 +17,12 @@ namespace Core.DropBox
                 await UploadToDropBoxAsync(dbx, pathInDropBox, fileName, stream);
             }
         }
-        public static async Task<Stream> DownloadFileAsync(string fullPathToFile)
+        public static async Task<byte[]> DownloadFileAsync(string fullPathToFile)
         {
             using (var dbx = new DropboxClient(DropBoxAccessToken))
             {
                 var full = await dbx.Users.GetCurrentAccountAsync();
-                return new MemoryStream(await DownloadFromDropBoxAsync(dbx, fullPathToFile));
+                return await DownloadFromDropBoxAsync(dbx, fullPathToFile);
             }
         }
         static async Task UploadToDropBoxAsync(DropboxClient dbx, string folder, string file, Stream mem) => await dbx.Files.UploadAsync(

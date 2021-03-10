@@ -34,14 +34,13 @@ namespace Remote_Control
 				{
 					var image = TakeScreenShotOfWindowByProcessName(appName);
 					ScreenPicture.Image = image;
-					var mem = new MemoryStream();
-					image.Save(mem, ImageFormat.Jpeg);
 					var uniquePath = Path.Combine(AppConfig.TempRoot, $"{Guid.NewGuid()}.jpg");
 					image.Save(uniquePath);
-					await DropBoxHelper.UploadFileAsync(new MemoryStream(File.ReadAllBytes(uniquePath)),
+					var mem = new MemoryStream(File.ReadAllBytes(uniquePath));
+					File.Delete(uniquePath);
+					await DropBoxHelper.UploadFileAsync(mem,
 						AppConfig.ScreenShootPath,
 						$"{DateTime.Now:yyyy-MM-dd h_mm tt}.jpg");
-					File.Delete(uniquePath);
 				}
 				else
 				{
@@ -60,7 +59,7 @@ namespace Remote_Control
 			}
 			catch (Exception ex)
 			{
-				Log(ex.Message);
+				ex.Message.LogError();
 			}
 		}
 

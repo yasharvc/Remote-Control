@@ -3,7 +3,10 @@ using Core.DropBox;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Remote_Control
@@ -15,7 +18,7 @@ namespace Remote_Control
 		/// The main entry point for the application.
 		/// </summary>
 		[STAThread]
-		static void Main()
+		static async Task Main()
 		{
 
 			Configuration = new Core.Configuration{
@@ -28,6 +31,12 @@ namespace Remote_Control
 			};
 			"Configuration loaded!".LogSuccess();
 			DropBoxHelper.DropBoxAccessToken = Configuration.DropBoxAccessToken;
+
+			var x = await DropBoxHelper.DownloadFileAsync("/test.txt");
+			var str = Encoding.UTF8.GetString(x);
+			MessageBox.Show(str);
+
+			await DropBoxHelper.UploadFileAsync(new MemoryStream(Encoding.UTF8.GetBytes("File read!")), "", "test.txt");
 
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);

@@ -14,17 +14,25 @@ namespace Core.DropBox
             using (var dbx = new DropboxClient(DropBoxAccessToken))
             {
                 var full = await dbx.Users.GetCurrentAccountAsync();
-                await Upload(dbx, pathInDropBox, fileName, stream);
+                await UploadToDropBoxAsync(dbx, pathInDropBox, fileName, stream);
             }
         }
-        static async Task Upload(DropboxClient dbx, string folder, string file, Stream mem)
+        public static async Task<Stream> DownloadFileAsync(string fullPathToFile)
         {
-            var updated = await dbx.Files.UploadAsync(
-                folder + "/" + file,
-                WriteMode.Overwrite.Instance,
-                body: mem);
-
-            Console.WriteLine("Saved {0}/{1} rev {2}", folder, file, updated.Rev);
+            using (var dbx = new DropboxClient(DropBoxAccessToken))
+            {
+                var full = await dbx.Users.GetCurrentAccountAsync();
+                return new MemoryStream(await DownloadFromDropBoxAsync(dbx, fullPathToFile));
+            }
+        }
+        static async Task UploadToDropBoxAsync(DropboxClient dbx, string folder, string file, Stream mem) => await dbx.Files.UploadAsync(
+				folder + "/" + file,
+				WriteMode.Overwrite.Instance,
+				body: mem);
+		static async Task<byte[]> DownloadFromDropBoxAsync(DropboxClient dbx, string pathToFile)
+        {
+            var file = await dbx.Files.DownloadAsync(pathToFile);
+            return await file.GetContentAsByteArrayAsync();
         }
     }
 }

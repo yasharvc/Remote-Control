@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Core.CMD
 {
@@ -11,7 +13,7 @@ namespace Core.CMD
 			
 		}
 
-        public static string CommandOutput(string command,
+        public static string CMD(string command,
                                       string workingDirectory = null)
         {
             try
@@ -52,5 +54,30 @@ namespace Core.CMD
                 return $"Error in command: {command}, {objException.Message}";
             }
         }
+
+  //      public Task<string> CMDAsync(string command,string workingDirectory = null)
+		//{
+  //          try
+  //          {
+		//		Thread objThread = new Thread(new ParameterizedThreadStart(CMD))
+		//		{
+		//			IsBackground = true,
+		//			Priority = ThreadPriority.AboveNormal
+		//		};
+  //              objThread.Start(command, workingDirectory);
+  //          }
+  //          catch (ThreadStartException objException)
+  //          {
+  //              return Task.FromResult("");
+  //          }
+  //          catch (ThreadAbortException objException)
+  //          {
+  //              // Log the exception
+  //          }
+  //          catch (Exception objException)
+  //          {
+  //              // Log the exception
+  //          }
+  //      }
     }
 }

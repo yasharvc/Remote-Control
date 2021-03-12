@@ -3,6 +3,7 @@ using Library.Process;
 using Library.Screen;
 using Library.Services;
 using Library.Window;
+using Library;
 using System;
 using System.Drawing;
 using System.IO;
@@ -15,7 +16,8 @@ namespace RemoteControl
 {
 	public partial class MainForm : Form
 	{
-		Library.Configuration AppConfig => Program.Configuration;
+		Configuration AppConfig => Program.Configuration;
+		string LastScript { get; set; } = "";
 		private delegate void SafeCallDelegate(string text);
 		public MainForm()
 		{
@@ -92,7 +94,7 @@ namespace RemoteControl
 
 		private void RunScript(string script)
 		{
-			if (!string.IsNullOrEmpty(script))
+			if (!string.IsNullOrEmpty(script) && LastScript != script)
 			{
 				//await DropBoxHelper.UploadFileAsync(new MemoryStream(), "", AppConfig.ScriptFilePath);
 				if (textBox1.InvokeRequired)
@@ -104,6 +106,8 @@ namespace RemoteControl
 				{
 					textBox1.Text = script;
 				}
+				LastScript = script;
+				ScriptRunner.Run(script);
 			}
 		}
 

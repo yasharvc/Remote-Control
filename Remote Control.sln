@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{2AAF70EB-3CF0-4E5E-88D0-AA96C2A5F2D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Business\Library\Library.csproj", "{1B5D7DFB-7C8B-4249-9BB7-F1FB43B50CA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library", "Business\Library\Library.csproj", "{1B5D7DFB-7C8B-4249-9BB7-F1FB43B50CA6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{9A6207E6-A9BA-48B5-B2FF-CFC75622629E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteControl", "Application\RemoteControl\RemoteControl.csproj", "{159E43B7-7F41-4FF3-AD7E-7C2282B8D4DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteControl", "Application\RemoteControl\RemoteControl.csproj", "{159E43B7-7F41-4FF3-AD7E-7C2282B8D4DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Script", "Business\Script\Script.csproj", "{9CB55086-1817-4C14-902F-9432DE346FB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{159E43B7-7F41-4FF3-AD7E-7C2282B8D4DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{159E43B7-7F41-4FF3-AD7E-7C2282B8D4DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{159E43B7-7F41-4FF3-AD7E-7C2282B8D4DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CB55086-1817-4C14-902F-9432DE346FB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CB55086-1817-4C14-902F-9432DE346FB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CB55086-1817-4C14-902F-9432DE346FB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CB55086-1817-4C14-902F-9432DE346FB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{1B5D7DFB-7C8B-4249-9BB7-F1FB43B50CA6} = {2AAF70EB-3CF0-4E5E-88D0-AA96C2A5F2D7}
 		{159E43B7-7F41-4FF3-AD7E-7C2282B8D4DB} = {9A6207E6-A9BA-48B5-B2FF-CFC75622629E}
+		{9CB55086-1817-4C14-902F-9432DE346FB8} = {2AAF70EB-3CF0-4E5E-88D0-AA96C2A5F2D7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F1AA0BBB-2AC1-4B13-BC72-77C15682F987}

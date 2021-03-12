@@ -1,10 +1,12 @@
 ﻿using System;
 using System.IO;
 
-namespace RemoteControl
+namespace Library
 {
-	static class Logger
+	public static class Logger
 	{
+		public static string LogRootPath { get; set; } = "";
+
 		public static void LogInfo(this string info)
 		{
 			var template = "<p style='border-color: #2196F3;background-color:#ddffff;  padding:10px;  border-top-style: none;  border-right-style: solid;  border-bottom-style: none;  border-left-style: solid;'>{0}</p>";
@@ -31,10 +33,10 @@ namespace RemoteControl
 
 		private static void WriteToLogFile(string v)
 		{
-			var pathToLogs = Program.Configuration.LogPath;
+			var pathToLogs = LogRootPath;
 			if (!Directory.Exists(pathToLogs))
 				Directory.CreateDirectory(pathToLogs);
-			var pathToLog = Path.Combine(Program.Configuration.LogPath, $"{DateTime.Now:yyyy-MM-dd}-Log.html");
+			var pathToLog = Path.Combine(LogRootPath, $"{DateTime.Now:yyyy-MM-dd}-Log.html");
 			File.AppendAllText(pathToLog, v);
 		}
 	}

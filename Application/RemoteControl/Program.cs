@@ -1,3 +1,4 @@
+using Library;
 using Library.DropBox;
 using System;
 using System.Configuration;
@@ -15,7 +16,7 @@ namespace RemoteControl
 		///  The main entry point for the application.
 		/// </summary>
 		[STAThread]
-		static async Task Main()
+		static void Main()
 		{
 			Configuration = new Library.Configuration
 			{
@@ -26,9 +27,11 @@ namespace RemoteControl
 				WaitForAppToStartMS = int.Parse(ConfigurationManager.AppSettings[nameof(Library.Configuration.WaitForAppToStartMS)]),
 				LogPath = ConfigurationManager.AppSettings[nameof(Library.Configuration.LogPath)],
 			};
-			$"Configuration loaded!<br/>Apps Root Path : {Configuration.AppsRootPath}".LogSuccess();
-			DropBoxHelper.DropBoxAccessToken = Configuration.DropBoxAccessToken;
 
+			DropBoxHelper.DropBoxAccessToken = Configuration.DropBoxAccessToken;
+			Logger.LogRootPath = Configuration.LogPath;
+
+			$"Configuration loaded!<br/>Apps Root Path : {Configuration.AppsRootPath}".LogSuccess();
 
 			Application.SetHighDpiMode(HighDpiMode.SystemAware);
 			Application.EnableVisualStyles();

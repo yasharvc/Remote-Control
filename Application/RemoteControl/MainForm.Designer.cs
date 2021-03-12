@@ -84,7 +84,7 @@ namespace RemoteControl
 			this.ScreenPicture.TabIndex = 3;
 			this.ScreenPicture.TabStop = false;
 			// 
-			// Form1
+			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -94,9 +94,9 @@ namespace RemoteControl
 			this.Controls.Add(this.WindowTitleLabel);
 			this.Controls.Add(this.TakeScreenShootButton);
 			this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-			this.Name = "Form1";
+			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "Form1";
+			this.Text = "Main Form";
 			((System.ComponentModel.ISupportInitialize)(this.ScreenPicture)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();

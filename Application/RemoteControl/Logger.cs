@@ -31,10 +31,10 @@ namespace RemoteControl
 
 		private static void WriteToLogFile(string v)
 		{
-			var pathToLogs = Path.Combine(Environment.CurrentDirectory, Program.Configuration.LogPath);
+			var pathToLogs = Program.Configuration.LogPath;
 			if (!Directory.Exists(pathToLogs))
 				Directory.CreateDirectory(pathToLogs);
-			var pathToLog = Path.Combine(Environment.CurrentDirectory, Program.Configuration.LogPath, $"{DateTime.Now:yyyy-MM-dd}-Log.html");
+			var pathToLog = Path.Combine(Program.Configuration.LogPath, $"{DateTime.Now:yyyy-MM-dd}-Log.html");
 			File.AppendAllText(pathToLog, v);
 		}
 	}

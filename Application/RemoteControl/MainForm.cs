@@ -13,10 +13,10 @@ using System.Windows.Forms;
 
 namespace RemoteControl
 {
-	public partial class Form1 : Form
+	public partial class MainForm : Form
 	{
 		Library.Configuration AppConfig => Program.Configuration;
-		public Form1()
+		public MainForm()
 		{
 			InitializeComponent();
 		}

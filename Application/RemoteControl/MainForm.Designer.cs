@@ -29,20 +29,9 @@ namespace RemoteControl
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
-			this.TitleChaserTimer = new System.Windows.Forms.Timer(this.components);
 			this.TakeScreenShootButton = new System.Windows.Forms.Button();
-			this.WindowTitleLabel = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
-			this.ScreenPicture = new System.Windows.Forms.PictureBox();
-			((System.ComponentModel.ISupportInitialize)(this.ScreenPicture)).BeginInit();
+			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
-			// 
-			// TitleChaserTimer
-			// 
-			this.TitleChaserTimer.Enabled = true;
-			this.TitleChaserTimer.Interval = 500;
-			this.TitleChaserTimer.Tick += new System.EventHandler(this.TitleChaserTimer_Tick);
 			// 
 			// TakeScreenShootButton
 			// 
@@ -54,62 +43,37 @@ namespace RemoteControl
 			this.TakeScreenShootButton.UseVisualStyleBackColor = true;
 			this.TakeScreenShootButton.Click += new System.EventHandler(this.TakeScreenShootButton_Click);
 			// 
-			// WindowTitleLabel
+			// textBox1
 			// 
-			this.WindowTitleLabel.AutoSize = true;
-			this.WindowTitleLabel.Location = new System.Drawing.Point(13, 42);
-			this.WindowTitleLabel.Name = "WindowTitleLabel";
-			this.WindowTitleLabel.Size = new System.Drawing.Size(35, 13);
-			this.WindowTitleLabel.TabIndex = 1;
-			this.WindowTitleLabel.Text = "label1";
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(13, 55);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(35, 13);
-			this.label1.TabIndex = 2;
-			this.label1.Text = "label1";
-			// 
-			// ScreenPicture
-			// 
-			this.ScreenPicture.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.ScreenPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.ScreenPicture.Location = new System.Drawing.Point(160, 12);
-			this.ScreenPicture.Name = "ScreenPicture";
-			this.ScreenPicture.Size = new System.Drawing.Size(628, 426);
-			this.ScreenPicture.TabIndex = 3;
-			this.ScreenPicture.TabStop = false;
+			this.textBox1.Location = new System.Drawing.Point(12, 41);
+			this.textBox1.Multiline = true;
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(776, 397);
+			this.textBox1.TabIndex = 3;
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
-			this.Controls.Add(this.ScreenPicture);
-			this.Controls.Add(this.label1);
-			this.Controls.Add(this.WindowTitleLabel);
+			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.TakeScreenShootButton);
 			this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Main Form";
-			((System.ComponentModel.ISupportInitialize)(this.ScreenPicture)).EndInit();
+			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
 		}
 
 		#endregion
-
-		private System.Windows.Forms.Timer TitleChaserTimer;
 		private System.Windows.Forms.Button TakeScreenShootButton;
-		private System.Windows.Forms.Label WindowTitleLabel;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.PictureBox ScreenPicture;
+		private System.Windows.Forms.TextBox textBox1;
 	}
 }
 

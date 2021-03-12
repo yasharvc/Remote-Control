@@ -1,10 +1,10 @@
 ﻿using Library.DropBox;
 using Library.Process;
 using Library.Screen;
+using Library.Services;
 using Library.Window;
 using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -16,6 +16,7 @@ namespace RemoteControl
 	public partial class MainForm : Form
 	{
 		Library.Configuration AppConfig => Program.Configuration;
+		private delegate void SafeCallDelegate(string text);
 		public MainForm()
 		{
 			InitializeComponent();
@@ -29,7 +30,6 @@ namespace RemoteControl
 				if (ProcessHelper.GetProcessesContainsName(appName).Any())
 				{
 					var image = TakeScreenShotOfWindowByProcessName(appName);
-					ScreenPicture.Image = image;
 					var uniquePath = Path.Combine(AppConfig.TempRoot, $"{Guid.NewGuid()}.jpg");
 					image.Save(uniquePath);
 					var mem = new MemoryStream(File.ReadAllBytes(uniquePath));
@@ -79,15 +79,50 @@ namespace RemoteControl
 				throw;
 			}
 		}
-		private void TitleChaserTimer_Tick(object sender, EventArgs e)
-		{
-			WindowTitleLabel.Text = ScreenHelper.GetWindowTitleUnderMouse();
-			label1.Text = ScreenHelper.GetWindowHandleUnderMouse().GetClassName();
-		}
 
 		private async void TakeScreenShootButton_Click(object sender, EventArgs e)
 		{
 			await RunAppAndTakeScreenShoot("AnyDesk");
+		}
+
+		private void MainForm_Load(object sender, EventArgs e)
+		{
+			new TimedFileReader(AppConfig.ScriptFilePath, 10000, RunScript).Start();
+		}
+
+		private void RunScript(string script)
+		{
+			if (!string.IsNullOrEmpty(script))
+			{
+				//await DropBoxHelper.UploadFileAsync(new MemoryStream(), "", AppConfig.ScriptFilePath);
+				if (textBox1.InvokeRequired)
+				{
+					var d = new SafeCallDelegate(WriteTextSafe);
+					textBox1.Invoke(d, new object[] { script });
+				}
+				else
+				{
+					textBox1.Text = script;
+				}
+			}
+		}
+
+		private void WriteTextSafe(string text)
+		{
+			if (textBox1.InvokeRequired)
+			{
+				var d = new SafeCallDelegate(WriteTextSafe);
+				textBox1.Invoke(d, new object[] { text });
+			}
+			else
+			{
+				textBox1.Text = text;
+			}
+		}
+
+		private void SetText()
+		{
+			WriteTextSafe("This text was set safely.");
 		}
 	}
 }

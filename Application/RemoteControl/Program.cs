@@ -26,14 +26,8 @@ namespace RemoteControl
 				WaitForAppToStartMS = int.Parse(ConfigurationManager.AppSettings[nameof(Library.Configuration.WaitForAppToStartMS)]),
 				LogPath = ConfigurationManager.AppSettings[nameof(Library.Configuration.LogPath)],
 			};
-			"Configuration loaded!".LogSuccess();
+			$"Configuration loaded!<br/>Apps Root Path : {Configuration.AppsRootPath}".LogSuccess();
 			DropBoxHelper.DropBoxAccessToken = Configuration.DropBoxAccessToken;
-
-			var x = await DropBoxHelper.DownloadFileAsync("/test.txt");
-			var str = Encoding.UTF8.GetString(x);
-			MessageBox.Show(str);
-
-			await DropBoxHelper.UploadFileAsync(new MemoryStream(Encoding.UTF8.GetBytes("File read!")), "", "test.txt");
 
 
 			Application.SetHighDpiMode(HighDpiMode.SystemAware);

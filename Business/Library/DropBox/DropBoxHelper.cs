@@ -19,12 +19,12 @@ namespace Library.DropBox
         }
         public static async Task<byte[]> DownloadFileAsync(string fullPathToFile)
         {
-            using (var dbx = new DropboxClient(DropBoxAccessToken))
-            {
-                var full = await dbx.Users.GetCurrentAccountAsync();
-                return await DownloadFromDropBoxAsync(dbx, fullPathToFile);
-            }
-        }
+            if (!fullPathToFile.StartsWith("/"))
+                fullPathToFile = $"/{fullPathToFile}";
+			using var dbx = new DropboxClient(DropBoxAccessToken);
+			var full = await dbx.Users.GetCurrentAccountAsync();
+			return await DownloadFromDropBoxAsync(dbx, fullPathToFile);
+		}
         static async Task UploadToDropBoxAsync(DropboxClient dbx, string folder, string file, Stream mem) => await dbx.Files.UploadAsync(
 				folder + "/" + file,
 				WriteMode.Overwrite.Instance,

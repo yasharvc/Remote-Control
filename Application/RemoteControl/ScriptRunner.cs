@@ -11,6 +11,8 @@ namespace RemoteControl
 {
 	class ScriptRunner
 	{
+		delegate void CommandRunner(Method m);
+		static Dictionary<string, CommandRunner> ScriptToFunction { get; set; } = new Dictionary<string, CommandRunner>();
 		static Configuration AppConfig => Program.Configuration;
 		static string AppDir => CMDHelper.AppDir;
 		public static void Run(string script) => Run(script.Parse());
@@ -31,15 +33,16 @@ namespace RemoteControl
 
 		private static void RunMethod(Method method)
 		{
-			if(method.Name.Equals("loginfo", StringComparison.OrdinalIgnoreCase))
-				LogInfo(method);
-			else if (method.Name.Equals("rebuild", StringComparison.OrdinalIgnoreCase))
-				Rebuild(method);
-			else if (method.Name.Equals("shutdown", StringComparison.OrdinalIgnoreCase))
-				Shutdown(method);
+			ScriptToFunction["loginfo"] = LogInfo;
+			ScriptToFunction["rebuild"] = Rebuild;
+			ScriptToFunction["shutdown"] = Shutdown;
+			ScriptToFunction["restart"] = Restart;
+			if (ScriptToFunction.ContainsKey(method.Name.ToLower()))
+				ScriptToFunction[method.Name.ToLower()](method);
 		}
 
 		private static void Shutdown(Method method) => Process.Start("Shutdown", "-s -t 1");
+		private static void Restart(Method method) => Process.Start("Shutdown", "-r -t 1");
 
 		private static void Rebuild(Method method)
 		{

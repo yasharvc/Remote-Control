@@ -58,6 +58,7 @@ namespace Library.CMD
             workingDirectory = string.IsNullOrEmpty(workingDirectory) ? Environment.CurrentDirectory : workingDirectory;
             ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd.exe", $"/c {cmd}")
             {
+                LoadUserProfile = true,
                 WorkingDirectory = workingDirectory
             };
 			var proc = new System.Diagnostics.Process

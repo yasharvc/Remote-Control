@@ -11,7 +11,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteControl", "Application\RemoteControl\RemoteControl.csproj", "{159E43B7-7F41-4FF3-AD7E-7C2282B8D4DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Script", "Business\Script\Script.csproj", "{9CB55086-1817-4C14-902F-9432DE346FB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Script", "Business\Script\Script.csproj", "{9CB55086-1817-4C14-902F-9432DE346FB8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5BDF10C2-1672-4C94-88BD-46B818608509}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

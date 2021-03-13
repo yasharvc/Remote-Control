@@ -25,11 +25,11 @@ namespace RemoteControl
 				LogPath = ConfigurationManager.AppSettings[nameof(Library.Configuration.LogPath)],
 			};
 
-			$"Temp root:{Configuration.TempRoot}".LogWarning();
 
 			DropBoxHelper.DropBoxAccessToken = Configuration.DropBoxAccessToken;
 			Logger.LogRootPath = Configuration.LogPath;
 
+			$"Temp root:{Configuration.TempRoot}".LogWarning();
 			$"Configuration loaded!<br/>Apps Root Path : {Configuration.AppsRootPath}".LogSuccess();
 
 			Application.SetHighDpiMode(HighDpiMode.SystemAware);

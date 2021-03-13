@@ -15,5 +15,5 @@ rmdir "D:\YasharRemote\Remote\app" /s /q
 cd "D:\YasharRemote\Projects\Remote-Control"
 dotnet publish -c Release --self-contained --runtime win-x86 -o "D:\YasharRemote\Remote\app"
 
-ECHO "This script will now self-destruct. Please ignore the next error message"
+D:\YasharRemote\Remote\app\RemoteControl.exe
 DEL "%~f0"

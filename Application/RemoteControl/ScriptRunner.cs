@@ -10,7 +10,7 @@ namespace RemoteControl
 {
 	class ScriptRunner
 	{
-		Configuration AppConfig => Program.Configuration;
+		static Configuration AppConfig => Program.Configuration;
 		public static void Run(string script) => Run(script.Parse());
 		public static void Run(IEnumerable<Method> methods)
 		{

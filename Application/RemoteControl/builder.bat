@@ -9,9 +9,10 @@ echo Process exited,Waiting more and then build!
 timeout /t 3 /nobreak >nul
 
 rmdir "D:\YasharRemote\Projects\Remote-Control" /s /q 
+cd "D:\YasharRemote\Projects\"
 git clone "https://github.com/yasharvc/Remote-Control.git"
-cd "D:\YasharRemote\Projects\Remote-Control"
 rmdir "D:\YasharRemote\Remote\app" /s /q
+cd "D:\YasharRemote\Projects\Remote-Control"
 dotnet publish -c Release --self-contained --runtime win-x86 -o "D:\YasharRemote\Remote\app"
 
 ECHO "This script will now self-destruct. Please ignore the next error message"

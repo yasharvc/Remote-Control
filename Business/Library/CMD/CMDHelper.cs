@@ -6,7 +6,8 @@ namespace Library.CMD
 {
 	public static class CMDHelper
 	{
-		public static void RunBatchScript(params string[] commands)
+        public static string AppDir { get; set; }
+        public static void RunBatchScript(params string[] commands)
 		{
 			
 		}
@@ -24,7 +25,7 @@ namespace Library.CMD
                 if (null != workingDirectory)
                     procStartInfo.WorkingDirectory = workingDirectory;
                 else
-                    procStartInfo.WorkingDirectory = Environment.CurrentDirectory;
+                    procStartInfo.WorkingDirectory = AppDir;
 
 				var proc = new System.Diagnostics.Process
                 {
@@ -55,7 +56,7 @@ namespace Library.CMD
 
         public static void RunCMdAndDontWait(this string cmd,string workingDirectory=null)
 		{
-            workingDirectory = string.IsNullOrEmpty(workingDirectory) ? Environment.CurrentDirectory : workingDirectory;
+            workingDirectory = string.IsNullOrEmpty(workingDirectory) ? AppDir : workingDirectory;
             ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd.exe", $"/c {cmd}")
             {
                 LoadUserProfile = true,

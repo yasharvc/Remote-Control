@@ -11,6 +11,7 @@ namespace RemoteControl
 	class ScriptRunner
 	{
 		static Configuration AppConfig => Program.Configuration;
+		static string AppDir => CMDHelper.AppDir;
 		public static void Run(string script) => Run(script.Parse());
 		public static void Run(IEnumerable<Method> methods)
 		{
@@ -39,7 +40,7 @@ namespace RemoteControl
 		{
 			string destBatFileName = Path.Combine(AppConfig.TempRoot, AppConfig.BuildScriptFileName);
 			$"Dest bat FileName:{destBatFileName}".LogWarning();
-			string sourceFileName = Path.Combine(Environment.CurrentDirectory, AppConfig.BuildScriptFileName);
+			string sourceFileName = Path.Combine(AppDir, AppConfig.BuildScriptFileName);
 			$"Source bat FileName:{sourceFileName}".LogWarning();
 			File.Copy(sourceFileName, destBatFileName, true);
 			CMDHelper.RunCMdAndDontWait($"{destBatFileName} {Environment.ProcessId}");

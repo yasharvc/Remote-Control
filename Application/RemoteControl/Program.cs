@@ -1,7 +1,9 @@
 using Library;
+using Library.CMD;
 using Library.DropBox;
 using System;
 using System.Configuration;
+using System.IO;
 using System.Windows.Forms;
 
 namespace RemoteControl
@@ -28,6 +30,7 @@ namespace RemoteControl
 
 			DropBoxHelper.DropBoxAccessToken = Configuration.DropBoxAccessToken;
 			Logger.LogRootPath = Configuration.LogPath;
+			CMDHelper.AppDir = Path.GetDirectoryName(Application.ExecutablePath);
 
 			$"Temp root:{Configuration.TempRoot}".LogWarning();
 			$"Configuration loaded!<br/>Apps Root Path : {Configuration.AppsRootPath}".LogSuccess();

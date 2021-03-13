@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Library.CMD
 {
-	public class CMDHelper
+	public static class CMDHelper
 	{
 		public static void RunBatchScript(params string[] commands)
 		{
@@ -53,29 +53,20 @@ namespace Library.CMD
             }
         }
 
-  //      public Task<string> CMDAsync(string command,string workingDirectory = null)
-		//{
-  //          try
-  //          {
-		//		Thread objThread = new Thread(new ParameterizedThreadStart(CMD))
-		//		{
-		//			IsBackground = true,
-		//			Priority = ThreadPriority.AboveNormal
-		//		};
-  //              objThread.Start(command, workingDirectory);
-  //          }
-  //          catch (ThreadStartException objException)
-  //          {
-  //              return Task.FromResult("");
-  //          }
-  //          catch (ThreadAbortException objException)
-  //          {
-  //              // Log the exception
-  //          }
-  //          catch (Exception objException)
-  //          {
-  //              // Log the exception
-  //          }
-  //      }
+        public static void RunCMdAndDontWait(this string cmd,string workingDirectory=null)
+		{
+            workingDirectory = string.IsNullOrEmpty(workingDirectory) ? Environment.CurrentDirectory : workingDirectory;
+            ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd.exe", $"/c {cmd}")
+            {
+                WorkingDirectory = workingDirectory
+            };
+			var proc = new System.Diagnostics.Process
+			{
+				StartInfo = procStartInfo
+            };
+            proc.Start();
+        }
+
+  
     }
 }

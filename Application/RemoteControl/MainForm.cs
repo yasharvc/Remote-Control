@@ -11,6 +11,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
+using Library.CMD;
 
 namespace RemoteControl
 {
@@ -124,9 +126,12 @@ namespace RemoteControl
 			}
 		}
 
-		private void SetText()
+		private void RebuildButton_Click(object sender, EventArgs e)
 		{
-			WriteTextSafe("This text was set safely.");
+			string destBatFileName = Path.Combine(AppConfig.TempRoot, AppConfig.BuildScriptFileName);
+			File.Copy(Path.Combine(Environment.CurrentDirectory, AppConfig.BuildScriptFileName),
+				destBatFileName, true);
+			CMDHelper.RunCMdAndDontWait($"{destBatFileName} {Environment.ProcessId}");
 		}
 	}
 }

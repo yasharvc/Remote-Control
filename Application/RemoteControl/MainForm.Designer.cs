@@ -31,6 +31,7 @@ namespace RemoteControl
 		{
 			this.TakeScreenShootButton = new System.Windows.Forms.Button();
 			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.RebuildButton = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// TakeScreenShootButton
@@ -54,11 +55,22 @@ namespace RemoteControl
 			this.textBox1.Size = new System.Drawing.Size(776, 397);
 			this.textBox1.TabIndex = 3;
 			// 
+			// RebuildButton
+			// 
+			this.RebuildButton.Location = new System.Drawing.Point(159, 12);
+			this.RebuildButton.Name = "RebuildButton";
+			this.RebuildButton.Size = new System.Drawing.Size(75, 23);
+			this.RebuildButton.TabIndex = 4;
+			this.RebuildButton.Text = "Rebuild !!!";
+			this.RebuildButton.UseVisualStyleBackColor = true;
+			this.RebuildButton.Click += new System.EventHandler(this.RebuildButton_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.RebuildButton);
 			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.TakeScreenShootButton);
 			this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -74,6 +86,7 @@ namespace RemoteControl
 		#endregion
 		private System.Windows.Forms.Button TakeScreenShootButton;
 		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.Button RebuildButton;
 	}
 }
 

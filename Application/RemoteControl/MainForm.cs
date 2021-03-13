@@ -1,9 +1,9 @@
-﻿using Library.DropBox;
+﻿using Library;
+using Library.DropBox;
 using Library.Process;
 using Library.Screen;
 using Library.Services;
 using Library.Window;
-using Library;
 using System;
 using System.Drawing;
 using System.IO;
@@ -11,8 +11,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using Library.CMD;
 
 namespace RemoteControl
 {
@@ -91,14 +89,14 @@ namespace RemoteControl
 
 		private void MainForm_Load(object sender, EventArgs e)
 		{
-			new TimedFileReader(AppConfig.ScriptFilePath, 10000, RunScript).Start();
+			new TimedFileReader(AppConfig.ScriptFilePath, 10000, RunScriptAsync).Start();
 		}
 
-		private void RunScript(string script)
+		private async Task RunScriptAsync(string script)
 		{
 			if (!string.IsNullOrEmpty(script) && LastScript != script)
 			{
-				//await DropBoxHelper.UploadFileAsync(new MemoryStream(), "", AppConfig.ScriptFilePath);
+				await DropBoxHelper.UploadFileAsync(new MemoryStream(), "", AppConfig.ScriptFilePath);
 				if (textBox1.InvokeRequired)
 				{
 					var d = new SafeCallDelegate(WriteTextSafe);
@@ -128,11 +126,7 @@ namespace RemoteControl
 
 		private void RebuildButton_Click(object sender, EventArgs e)
 		{
-			string destBatFileName = Path.Combine(AppConfig.TempRoot, AppConfig.BuildScriptFileName);
-			File.Copy(Path.Combine(Environment.CurrentDirectory, AppConfig.BuildScriptFileName),
-				destBatFileName, true);
-			CMDHelper.RunCMdAndDontWait($"{destBatFileName} {Environment.ProcessId}");
-			Close();
+			ScriptRunner.Run("Rebuild:");
 		}
 	}
 }

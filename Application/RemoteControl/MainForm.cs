@@ -132,6 +132,7 @@ namespace RemoteControl
 			File.Copy(Path.Combine(Environment.CurrentDirectory, AppConfig.BuildScriptFileName),
 				destBatFileName, true);
 			CMDHelper.RunCMdAndDontWait($"{destBatFileName} {Environment.ProcessId}");
+			Close();
 		}
 	}
 }

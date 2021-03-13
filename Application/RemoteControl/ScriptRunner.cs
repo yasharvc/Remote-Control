@@ -38,8 +38,10 @@ namespace RemoteControl
 		private static void Rebuild(Method method)
 		{
 			string destBatFileName = Path.Combine(AppConfig.TempRoot, AppConfig.BuildScriptFileName);
-			File.Copy(Path.Combine(Environment.CurrentDirectory, AppConfig.BuildScriptFileName),
-				destBatFileName, true);
+			$"Dest bat FileName:{destBatFileName}".LogWarning();
+			string sourceFileName = Path.Combine(Environment.CurrentDirectory, AppConfig.BuildScriptFileName);
+			$"Source bat FileName:{sourceFileName}".LogWarning();
+			File.Copy(sourceFileName, destBatFileName, true);
 			CMDHelper.RunCMdAndDontWait($"{destBatFileName} {Environment.ProcessId}");
 			Environment.Exit(0);
 		}

@@ -4,6 +4,7 @@ using Script;
 using Script.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace RemoteControl
@@ -34,7 +35,11 @@ namespace RemoteControl
 				LogInfo(method);
 			else if (method.Name.Equals("rebuild", StringComparison.OrdinalIgnoreCase))
 				Rebuild(method);
+			else if (method.Name.Equals("shutdown", StringComparison.OrdinalIgnoreCase))
+				Shutdown(method);
 		}
+
+		private static void Shutdown(Method method) => Process.Start("Shutdown", "-s -t 1");
 
 		private static void Rebuild(Method method)
 		{

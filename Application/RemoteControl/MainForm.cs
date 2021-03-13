@@ -92,7 +92,7 @@ namespace RemoteControl
 			new TimedFileReader(AppConfig.ScriptFilePath, 10000, RunScriptAsync).Start();
 		}
 
-		private async Task RunScriptAsync(string script)
+		private async void RunScriptAsync(string script)
 		{
 			if (!string.IsNullOrEmpty(script) && LastScript != script)
 			{

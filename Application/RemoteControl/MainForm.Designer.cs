@@ -50,11 +50,13 @@ namespace RemoteControl
 			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.textBox1.BackColor = System.Drawing.Color.Blue;
+			this.textBox1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+			this.textBox1.ForeColor = System.Drawing.Color.Yellow;
 			this.textBox1.Location = new System.Drawing.Point(12, 41);
 			this.textBox1.Multiline = true;
 			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(298, 158);
+			this.textBox1.Size = new System.Drawing.Size(450, 266);
 			this.textBox1.TabIndex = 3;
 			// 
 			// RebuildButton
@@ -71,7 +73,8 @@ namespace RemoteControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(322, 211);
+			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+			this.ClientSize = new System.Drawing.Size(474, 319);
 			this.Controls.Add(this.RebuildButton);
 			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.TakeScreenShootButton);

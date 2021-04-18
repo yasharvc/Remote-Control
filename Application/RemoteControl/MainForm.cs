@@ -25,66 +25,16 @@ namespace RemoteControl
 		}
 
 
-		private async Task RunAppAndTakeScreenShoot(string appName)
+		private void RunAppAndTakeScreenShoot(string appName)
 		{
-			try
-			{
-				if (ProcessHelper.GetProcessesContainsName(appName).Any())
-				{
-					var image = TakeScreenShotOfWindowByProcessName(appName);
-					var uniquePath = Path.Combine(AppConfig.TempRoot, $"{Guid.NewGuid()}.jpg");
-					image.Save(uniquePath);
-					var mem = new MemoryStream(File.ReadAllBytes(uniquePath));
-					File.Delete(uniquePath);
-					await DropBoxHelper.UploadFileAsync(mem,
-						AppConfig.ScreenShootPath,
-						$"{DateTime.Now:yyyy-MM-dd h_mm tt}.jpg");
-				}
-				else
-				{
-					try
-					{
-						$"{appName} is not running".LogWarning();
-						ExecuteApp(appName);
-						WaitForAppToStart();
-						await RunAppAndTakeScreenShoot(appName);
-					}
-					catch
-					{
-						"Window are not exists".LogError();
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				ex.Message.LogError();
-			}
+			RunScriptAsync("anydeskpicture:");
 		}
 
-		private void WaitForAppToStart() => Thread.Sleep(AppConfig.WaitForAppToStartMS);
-
-		private void ExecuteApp(string appName) => ProcessHelper.RunApp(Path.Combine(AppConfig.AppsRootPath, $"{appName}.exe"));
-
-
-		private static Image TakeScreenShotOfWindowByProcessName(string processName)
-		{
-			try
-			{
-				ScreenCapture sc = new ScreenCapture();
-				var hWnd = ProcessHelper.GetProcessesContainsName(processName).First().MainWindowHandle;
-				hWnd.MaximizeWindow();
-				Thread.Sleep(2000);
-				return sc.CaptureWindow(hWnd);
-			}
-			catch
-			{
-				throw;
-			}
-		}
+		
 
 		private async void TakeScreenShootButton_Click(object sender, EventArgs e)
 		{
-			await RunAppAndTakeScreenShoot("AnyDesk");
+			RunAppAndTakeScreenShoot("AnyDesk");
 		}
 
 		private void MainForm_Load(object sender, EventArgs e)

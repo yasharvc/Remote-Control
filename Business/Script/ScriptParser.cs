@@ -21,16 +21,34 @@ namespace Script
 		{
 			//CommandName:par1,par2,...\n
 			var res = new Method();
-			var cmd = line.Split(':')[0].Trim().ToLower();
-			var parList = line[(line.IndexOf(':') + 1)..].Split(',');
+			string cmd;
+			string[] parList;
+			ParseLineString(line, out cmd, out parList);
 			res.Name = cmd;
 			res.Parameters = new List<string>();
 			foreach (var par in parList)
 			{
-				if(!string.IsNullOrEmpty(par))
+				if (!string.IsNullOrEmpty(par))
 					res.Parameters.Add(par.Trim());
 			}
 			return res;
+		}
+
+		private static void ParseLineString(string line, out string cmd, out string[] parList)
+		{
+			cmd = "";
+			parList = System.Array.Empty<string>();
+			if (line.Trim().Length == 0)
+				return;
+			if (line.Contains(":"))
+			{
+				cmd = line.Split(':')[0].Trim().ToLower();
+				parList = line[(line.IndexOf(':') + 1)..].Split(',');
+			}
+			else
+			{
+				cmd = line.Trim();
+			}
 		}
 	}
 }

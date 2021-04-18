@@ -19,7 +19,7 @@ namespace RemoteControl
 {
 	class ScriptRunner
 	{
-		delegate void CommandRunner(Method m);
+		delegate Task CommandRunner(Method m);
 		static Dictionary<string, CommandRunner> ScriptToFunction { get; set; } = new Dictionary<string, CommandRunner>();
 		static Configuration AppConfig => Program.Configuration;
 		static string AppDir => CMDHelper.AppDir;
@@ -45,11 +45,10 @@ namespace RemoteControl
 			ScriptToFunction["rebuild"] = Rebuild;
 			ScriptToFunction["shutdown"] = Shutdown;
 			ScriptToFunction["restart"] = Restart;
-			ScriptToFunction["anydeskpicture"] = VoidAnydeskTakePictureAsync;
+			ScriptToFunction["anydeskpicture"] = AnydeskTakePictureAsync;
 			if (ScriptToFunction.ContainsKey(method.Name.ToLower()))
 				ScriptToFunction[method.Name.ToLower()](method);
 		}
-		private static async void VoidAnydeskTakePictureAsync(Method m) => await AnydeskTakePictureAsync(m);
 		private static async Task AnydeskTakePictureAsync(Method m)
 		{
 			var appName = "AnyDesk";
@@ -91,7 +90,7 @@ namespace RemoteControl
 		{
 			try
 			{
-				ScreenCapture sc = new ScreenCapture();
+				ScreenCapture sc = new();
 				var hWnd = ProcessHelper.GetProcessesContainsName(processName).First().MainWindowHandle;
 				hWnd.MaximizeWindow();
 				Thread.Sleep(2000);
@@ -108,10 +107,18 @@ namespace RemoteControl
 		private static void ExecuteApp(string appName) => ProcessHelper.RunApp(Path.Combine(AppConfig.AppsRootPath, $"{appName}.exe"));
 
 
-		private static void Shutdown(Method method) => Process.Start("Shutdown", "-s -t 1");
-		private static void Restart(Method method) => Process.Start("Shutdown", "-r -t 1");
+		private static Task Shutdown(Method method)
+		{
+			Process.Start("Shutdown", "-s -t 1");
+			return Task.CompletedTask;
+		}
+		private static Task Restart(Method method)
+		{
+			Process.Start("Shutdown", "-r -t 1");
+			return Task.CompletedTask;
+		}
 
-		private static void Rebuild(Method method)
+		private static Task Rebuild(Method method)
 		{
 			string destBatFileName = Path.Combine(AppConfig.TempRoot, AppConfig.BuildScriptFileName);
 			$"Dest bat FileName:{destBatFileName}".LogWarning();
@@ -120,12 +127,14 @@ namespace RemoteControl
 			File.Copy(sourceFileName, destBatFileName, true);
 			CMDHelper.RunCMdAndDontWait($"{destBatFileName} {Environment.ProcessId}");
 			Environment.Exit(0);
+			return Task.CompletedTask;
 		}
 
-		private static void LogInfo(Method method)
+		private static Task LogInfo(Method method)
 		{
 			foreach (var item in method.Parameters)
 				item.LogInfo();
+			return Task.CompletedTask;
 		}
 	}
 }

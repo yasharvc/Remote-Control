@@ -25,24 +25,21 @@ namespace RemoteControl
 		}
 
 
-		private void RunAppAndTakeScreenShoot(string appName)
+		private async Task RunAppAndTakeScreenShoot(string appName)
 		{
-			RunScriptAsync("anydeskpicture:");
+			await RunScriptAsync("anydeskpicture:");
 		}
 
 		
 
 		private async void TakeScreenShootButton_Click(object sender, EventArgs e)
 		{
-			RunAppAndTakeScreenShoot("AnyDesk");
+			await RunAppAndTakeScreenShoot("AnyDesk");
 		}
 
-		private void MainForm_Load(object sender, EventArgs e)
-		{
-			new TimedFileReader(AppConfig.ScriptFilePath, 10000, RunScriptAsync).Start();
-		}
+		private void MainForm_Load(object sender, EventArgs e) => new TimedFileReader(AppConfig.ScriptFilePath, 10000, RunScriptAsync).Start();
 
-		private async void RunScriptAsync(string script)
+		private async Task RunScriptAsync(string script)
 		{
 			if (!string.IsNullOrEmpty(script) && LastScript != script)
 			{

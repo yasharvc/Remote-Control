@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Library.Services
 {
@@ -8,9 +9,9 @@ namespace Library.Services
 
 		System.Timers.Timer Ticker { get; set; }
 		string Path { get; }
-		Action<string> ActionOnRead { get; set; }
+		Func<string, Task> ActionOnRead { get; set; }
 
-		public TimedFileReader(string path, int delayMS, Action<string> actionOnFileRead)
+		public TimedFileReader(string path, int delayMS, Func<string, Task> actionOnFileRead)
 		{
 			Path = path;
 			ActionOnRead = actionOnFileRead;
@@ -24,7 +25,7 @@ namespace Library.Services
 			try
 			{
 				var file = Encoding.UTF8.GetString(await DropBox.DropBoxHelper.DownloadFileAsync(Path));
-				ActionOnRead(file);
+				await ActionOnRead(file);
 			}
 			catch
 			{

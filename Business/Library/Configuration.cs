@@ -5,6 +5,7 @@
 		public string AppsRootPath { get; set; }
 		public string LogPath { get; set; }
 		public string ScriptFilePath { get; set; } = "Script.txt";
+		public string ScheduleFilePath { get; set; } = "D:\\YasharRemote\\Schedule\\Schedule.txt";
 		public string BuildScriptFileName { get; set; } = "builder.bat";
 		public string ScreenShootPath { get; set; }
 		public string DropBoxAccessToken { get; set; }

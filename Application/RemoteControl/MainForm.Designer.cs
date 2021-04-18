@@ -29,10 +29,12 @@ namespace RemoteControl
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.TakeScreenShootButton = new System.Windows.Forms.Button();
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.RebuildButton = new System.Windows.Forms.Button();
+			this.ScheduleTimer = new System.Windows.Forms.Timer(this.components);
 			this.SuspendLayout();
 			// 
 			// TakeScreenShootButton
@@ -70,6 +72,12 @@ namespace RemoteControl
 			this.RebuildButton.UseVisualStyleBackColor = true;
 			this.RebuildButton.Click += new System.EventHandler(this.RebuildButton_Click);
 			// 
+			// ScheduleTimer
+			// 
+			this.ScheduleTimer.Enabled = true;
+			this.ScheduleTimer.Interval = 5000;
+			this.ScheduleTimer.Tick += new System.EventHandler(this.ScheduleTimer_Tick);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -93,6 +101,7 @@ namespace RemoteControl
 		private System.Windows.Forms.Button TakeScreenShootButton;
 		private System.Windows.Forms.TextBox textBox1;
 		private System.Windows.Forms.Button RebuildButton;
+		private System.Windows.Forms.Timer ScheduleTimer;
 	}
 }
 

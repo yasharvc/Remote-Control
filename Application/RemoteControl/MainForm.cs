@@ -25,9 +25,10 @@ namespace RemoteControl
 		}
 
 
-		private async Task RunAppAndTakeScreenShoot(string appName)
+		private static Task RunAppAndTakeScreenShoot(string appName)
 		{
-			await RunScriptAsync("anydeskpicture:");
+			ScriptRunner.Run("anydeskpicture:");
+			return Task.CompletedTask;
 		}
 
 		
@@ -74,6 +75,27 @@ namespace RemoteControl
 		private void RebuildButton_Click(object sender, EventArgs e)
 		{
 			ScriptRunner.Run("Rebuild:");
+		}
+
+		private void ScheduleTimer_Tick(object sender, EventArgs e)
+		{
+			try
+			{
+				var scheduleFile = File.ReadAllText(AppConfig.ScheduleFilePath);
+				foreach (var line in scheduleFile.Split('\r'))
+				{
+					if(line.StartsWith("Shutdown", StringComparison.OrdinalIgnoreCase))
+					{
+						var time = DateTime.Parse(line.Split('>')[1]).TimeOfDay;
+						if(DateTime.Now.TimeOfDay.Subtract(time).TotalMilliseconds > 0)
+							ScriptRunner.Run("shutdown:");
+					}
+				}
+			}
+			catch
+			{
+
+			}
 		}
 	}
 }
